@@ -386,6 +386,13 @@ namespace XTensions
         HashValue2 = 41u
     }
 
+    [Flags]
+    public enum FindItemOptions : uint
+    {
+        IgnoreCase = 0x00000000u,
+        MatchCase = 0x00000001u
+    }
+
     public enum HashNumber : int
     {
         Primary = 1,

@@ -42,7 +42,7 @@ namespace XTensions
         /// <param name="volumeNameType">The volume name type to return.  The default is
         /// VolumeNameType.Type1.</param>
         /// <returns>Returns the volume name in the type specified.</returns>
-        public static string GetVolumeName(IntPtr volume, VolumeNameType volumeNameType 
+        public static string GetVolumeName(IntPtr volume, VolumeNameType volumeNameType
             = VolumeNameType.Type1)
         {
             // Fail if a volume pointer wasn't provided.
@@ -179,7 +179,7 @@ namespace XTensions
         /// <param name="options">Options for opening, using ItemOpenModes flag.</param>
         /// <returns>Returns a handle to the open item, or IntPtr.Zero if unsuccessful
         /// </returns>
-        public static IntPtr OpenItem(IntPtr volume, long itemId, ItemOpenModes options 
+        public static IntPtr OpenItem(IntPtr volume, long itemId, ItemOpenModes options
             = ItemOpenModes.LogicalContents)
         {
             // Fail if a volume pointer wasn't provided.
@@ -265,7 +265,7 @@ namespace XTensions
             // Fail if a volume or item pointer weren't provided.
             if (item == IntPtr.Zero) throw new ArgumentException(
                 "Zero item pointer provided");
-            
+
             // Get the size of the provided item.
             int Size = (int)GetSize(item, ItemSizeType.PhysicalSize);
 
@@ -284,7 +284,7 @@ namespace XTensions
         {
 
         }
-        
+
         /// <summary>
         /// Retrieves information about the current case. A helper method for 
         /// XWF_GetCaseProp().
@@ -295,7 +295,7 @@ namespace XTensions
         {
             long Status;
             CaseProperties Properties = new CaseProperties();
-            
+
             // Read the title.
             IntPtr Buffer = Marshal.AllocHGlobal(_casePropertiesLength);
             Status = ImportedMethods.XWF_GetCaseProp(IntPtr.Zero
@@ -845,7 +845,7 @@ namespace XTensions
         /// </returns>
         /// <remarks>Version 1.0 coding complete.
         /// Todo: Need to learn more about sourceInformation.</remarks>
-        public static int CreateFile(string fileName, CreateFileOptions options, 
+        public static int CreateFile(string fileName, CreateFileOptions options,
             int parentItemId, IntPtr sourceInformation)
         {
             // Fail if no item name provided.
@@ -865,7 +865,7 @@ namespace XTensions
         /// <param name="itemId">The item Id.</param>
         /// <returns>Returns name of the item.</returns>
         /// <remarks>What happens if an incorrect item Id is provided?</remarks>
-        public static string GetItemName(int itemId)
+        public static string GetItemName(long itemId)
         {
             if (itemId < -1) throw new ArgumentException(
                 "Invalid item Id provided.");
@@ -883,7 +883,7 @@ namespace XTensions
         /// <param name="itemId">The item Id.</param>
         /// <returns>The full path of the specified item.</returns>
         /// <remarks>Needs testing.</remarks>
-        public static string GetFullPath(int itemId)
+        public static string GetFullPath(long itemId)
         {
             // Fail if a item Id less than -1 is provided.
             if (itemId < -1) throw new ArgumentException(
@@ -901,7 +901,7 @@ namespace XTensions
             while (true)
             {
                 // Get the current item's parent Id.
-                int parentItemId = GetItemParent(itemId);
+                long parentItemId = GetItemParent(itemId);
 
                 // Finished if the parent is the root.
                 if (parentItemId < 0) return sb.ToString();
@@ -1144,7 +1144,7 @@ namespace XTensions
         /// <param name="itemTypeOptions">The type of item type to return.</param>
         /// <returns>Returns a ItemType structure with the file type and description.
         /// </returns>
-        public static ItemType GetItemType(int itemId, ItemTypeOptions itemTypeOptions = 
+        public static ItemType GetItemType(int itemId, ItemTypeOptions itemTypeOptions =
             ItemTypeOptions.TextualDesignation)
         {
             // Fail if invalid item Id provided.
@@ -1194,7 +1194,7 @@ namespace XTensions
         /// <returns>Returns the parent Id of the given item, or -1 if there is none.
         /// </returns>
         /// <remarks>Needs testing.</remarks>
-        public static int GetItemParent(int itemId)
+        public static long GetItemParent(long itemId)
         {
             // Fail if invalid child item Id provided.
             if (itemId < 0)
@@ -1226,7 +1226,7 @@ namespace XTensions
             ImportedMethods.XWF_SetItemParent(childItemId, parentItemId);
 
             // If the parent doesn't have the "hasChildren" option set, do this.
-            if (parentItemId >= 0 && (GetItemInformation(parentItemId).options & 
+            if (parentItemId >= 0 && (GetItemInformation(parentItemId).options &
                 ItemInformationOptions.hasChildren) == 0)
             {
                 SetItemInformation(parentItemId, ItemInformationType.Options,
@@ -1336,7 +1336,7 @@ namespace XTensions
         /// <param name="mode">Indicates how the comment should be added.</param>
         /// <returns>Returns true if successful, otherwise false.</returns>
         /// <remarks>Need testing.</remarks>
-        public static bool AddComment(int itemId, string commentText, 
+        public static bool AddComment(int itemId, string commentText,
             AddCommentMode mode)
         {
             // Fail if invalid item Id provided.
@@ -1425,7 +1425,7 @@ namespace XTensions
             else
                 Marshal.WriteByte(Buffer, 0, 0);
 
-            if (hashNum == HashNumber.FirstPhotoDNA || 
+            if (hashNum == HashNumber.FirstPhotoDNA ||
                 hashNum == HashNumber.SecondPhotoDNA ||
                 hashNum == HashNumber.ThirdPhotoDNA)
             {
@@ -1541,7 +1541,7 @@ namespace XTensions
         /// <param name="codePages">The code pages to use.</param>
         /// <returns>Returns result status.</returns>
         /// <remarks>Needs testing.</remarks>
-        public static int Search(ref SearchInformation information, 
+        public static int Search(ref SearchInformation information,
             ref CodePages codePages)
         {
             return ImportedMethods.XWF_Search(ref information, ref codePages);
@@ -1689,8 +1689,8 @@ namespace XTensions
         /// <returns>Returns 0 if successful, otherwise an error code. If the error code 
         /// is negative, you should not try to fill the container further.</returns>
         /// <remarks>Needs testing.</remarks>
-        public static int CopyToContainer(IntPtr container, IntPtr item, 
-            CopyToContainerOptions options, CopyToContainerMode mode, 
+        public static int CopyToContainer(IntPtr container, IntPtr item,
+            CopyToContainerOptions options, CopyToContainerMode mode,
             long startOffset = -1, long endOffset = -1)
         {
             // Fail if a zero container provided.
@@ -1735,7 +1735,7 @@ namespace XTensions
         /// <param name="message">The message to print.</param>
         /// <param name="options">Output message options.</param>
         /// <remarks>Needs testing.</remarks>
-        public static void OutputMessage(string message, OutputMessageOptions options = 
+        public static void OutputMessage(string message, OutputMessageOptions options =
             OutputMessageOptions.None)
         {
             // Fail if a null string message is provided.
@@ -1815,7 +1815,7 @@ namespace XTensions
             }
 
             // Call the API function and get the user input, and clean up.
-            long InputLength = ImportedMethods.XWF_GetUserInput(message, Buffer, 
+            long InputLength = ImportedMethods.XWF_GetUserInput(message, Buffer,
                 _userInputLength, options);
             string UserInput = Marshal.PtrToStringUni(Buffer, (int) InputLength);
             Marshal.FreeHGlobal(Buffer);

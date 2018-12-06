@@ -132,7 +132,7 @@ namespace XTensions.Testing
                 + Offsets.DataStartSector
                 , OutputMessageOptions.Level4);
 
-            Int32 nParentItemID = HelperMethods.GetItemParent(itemID);
+            long nParentItemID = HelperMethods.GetItemParent(itemID);
             HelperMethods.OutputMessage("Parent ID: "
                 + nParentItemID
                 , OutputMessageOptions.Level4);

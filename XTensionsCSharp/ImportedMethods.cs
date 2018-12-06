@@ -154,7 +154,7 @@ namespace XTensions
         public static XWFGetItemNameDelegate XWF_GetItemName;
         */
 
-        public delegate IntPtr XWFGetItemNameDelegate(int itemID);
+        public delegate IntPtr XWFGetItemNameDelegate(long itemID);
         public static XWFGetItemNameDelegate XWF_GetItemName;
 
         /*
@@ -162,6 +162,9 @@ namespace XTensions
             , [MarshalAs(UnmanagedType.LPWStr)] string lpName);
         public static XWFSetItemNameDelegate XWF_SetItemName;
         */
+
+        public delegate long XWFFindItem1Delegate(long nParentItemID, [MarshalAs(UnmanagedType.LPWStr)] string lpName, FindItemOptions nFlags, long nSearchStartItemID);
+        public static XWFFindItem1Delegate XWF_FindItem1;
 
         public delegate long XWFGetItemSizeDelegate(long itemID);
         public static XWFGetItemSizeDelegate XWF_GetItemSize;
@@ -194,7 +197,7 @@ namespace XTensions
             , ItemTypeCategory nItemType);
         public static XWFSetItemTypeDelegate XWF_SetItemType;
 
-        public delegate int XWFGetItemParentDelegate(int nItemID);
+        public delegate long XWFGetItemParentDelegate(long nItemID);
         public static XWFGetItemParentDelegate XWF_GetItemParent;
 
         public delegate void XWFSetItemParentDelegate(int nChildItemID
@@ -274,7 +277,7 @@ namespace XTensions
         */
 
         public delegate int XWFAddSearchTermDelegate(
-            [MarshalAs(UnmanagedType.LPWStr)] string lpSearchTermDescr, 
+            [MarshalAs(UnmanagedType.LPWStr)] string lpSearchTermDescr,
             SearchTermOptions nFlags);
         public static XWFAddSearchTermDelegate XWFAddSearchTerm;
 
@@ -387,7 +390,7 @@ namespace XTensions
                 XWF_GetVolumeName = GetMethodDelegate<XWFGetVolumeNameDelegate>(
                     moduleHandle, "XWF_GetVolumeName");
 
-                XWF_GetVolumeInformation 
+                XWF_GetVolumeInformation
                     = GetMethodDelegate<XWFGetVolumeInformationDelegate>(
                     moduleHandle, "XWF_GetVolumeInformation");
 
@@ -456,15 +459,15 @@ namespace XTensions
                 XWF_GetEvObj = GetMethodDelegate<XWFGetEvObjDelegate>(
                     moduleHandle, "XWF_GetEvObj");
 
-                XWF_GetReportTableInfo 
+                XWF_GetReportTableInfo
                     = GetMethodDelegate<XWFGetReportTableInfoDelegate>(
                     moduleHandle, "XWF_GetReportTableInfo");
 
-                XWF_GetEvObjReportTableAssocs 
+                XWF_GetEvObjReportTableAssocs
                     = GetMethodDelegate<XWFGetEvObjReportTableAssocsDelegate>(
                     moduleHandle, "XWF_GetEvObjReportTableAssocs");
 
-                XWF_SelectVolumeSnapshot 
+                XWF_SelectVolumeSnapshot
                     = GetMethodDelegate<XWFSelectVolumeSnapshotDelegate>(
                     moduleHandle, "XWF_SelectVolumeSnapshot");
 
@@ -496,6 +499,9 @@ namespace XTensions
                     moduleHandle, "XWF_SetItemName");
                 */
 
+                XWF_FindItem1 = GetMethodDelegate<XWFFindItem1Delegate>(
+                    moduleHandle, "XWF_FindItem1");
+
                 XWF_GetItemSize = GetMethodDelegate<XWFGetItemSizeDelegate>(
                     moduleHandle, "XWF_GetItemSize");
 
@@ -508,11 +514,11 @@ namespace XTensions
                 XWF_SetItemOfs = GetMethodDelegate<XWFSetItemOfsDelegate>(
                     moduleHandle, "XWF_SetItemOfs");
 
-                XWF_GetItemInformation 
+                XWF_GetItemInformation
                     = GetMethodDelegate<XWFGetItemInformationDelegate>(
                     moduleHandle, "XWF_GetItemInformation");
 
-                XWF_SetItemInformation 
+                XWF_SetItemInformation
                     = GetMethodDelegate<XWFSetItemInformationDelegate>(
                     moduleHandle, "XWF_SetItemInformation");
 
@@ -528,7 +534,7 @@ namespace XTensions
                 XWF_SetItemParent = GetMethodDelegate<XWFSetItemParentDelegate>(
                     moduleHandle, "XWF_SetItemParent");
 
-                XWF_GetReportTableAssocs 
+                XWF_GetReportTableAssocs
                     = GetMethodDelegate<XWFGetReportTableAssocsDelegate>(
                     moduleHandle, "XWF_GetReportTableAssocs");
 
@@ -541,11 +547,11 @@ namespace XTensions
                 XWF_AddComment = GetMethodDelegate<XWFAddCommentDelegate>(
                     moduleHandle, "XWF_AddComment");
 
-                XWF_GetExtractedMetadata 
+                XWF_GetExtractedMetadata
                     = GetMethodDelegate<XWFGetExtractedMetadataDelegate>(
                     moduleHandle, "XWF_GetExtractedMetadata");
 
-                XWF_AddExtractedMetadata 
+                XWF_AddExtractedMetadata
                     = GetMethodDelegate<XWFAddExtractedMetadataDelegate>(
                     moduleHandle, "XWF_AddExtractedMetadata");
 
@@ -568,7 +574,7 @@ namespace XTensions
                     moduleHandle, "XWF_GetMetadata");
                 */
 
-                XWF_GetMetadataEx = GetMethodDelegate < XWFGetMetadataExDelegate>(
+                XWF_GetMetadataEx = GetMethodDelegate<XWFGetMetadataExDelegate>(
                     moduleHandle, "XWF_GetMetadataEx");
 
                 XWF_GetRasterImage = GetMethodDelegate<XWFGetRasterImageDelegate>(
@@ -577,7 +583,7 @@ namespace XTensions
                 XWF_Search = GetMethodDelegate<XWFSearchDelegate>(
                     moduleHandle, "XWF_Search");
 
-                XWF_SearchWithPtrToPages 
+                XWF_SearchWithPtrToPages
                     = GetMethodDelegate<XWFSearchWithPtrToPagesDelegate>(
                     moduleHandle, "XWF_Search");
 
@@ -636,11 +642,11 @@ namespace XTensions
                 XWF_ShowProgress = GetMethodDelegate<XWFShowProgressDelegate>(
                     moduleHandle, "XWF_ShowProgress");
 
-                XWF_SetProgressPercentage 
+                XWF_SetProgressPercentage
                     = GetMethodDelegate<XWFSetProgressPercentageDelegate>(
                     moduleHandle, "XWF_SetProgressPercentage");
 
-                XWF_SetProgressDescription 
+                XWF_SetProgressDescription
                     = GetMethodDelegate<XWFSetProgressDescriptionDelegate>(
                     moduleHandle, "XWF_SetProgressDescription");
 
@@ -659,7 +665,7 @@ namespace XTensions
                 return false;
             }
 
-            return true;            
+            return true;
         }
     }
 
@@ -667,11 +673,11 @@ namespace XTensions
     /// 
     /// </summary>
     static class NativeMethods
-    {                        
+    {
         // lpModuleName is declared as IntPtr in order to pass NULL through it
         [DllImport("kernel32.dll")]
         public static extern IntPtr GetModuleHandle(IntPtr lpModuleName);
-        
+
         [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
     }
